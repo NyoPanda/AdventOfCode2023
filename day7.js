@@ -37,7 +37,7 @@ function getStrength(cards, hasJoker) {
     if (count.includes(3) && count.includes(2))
         return 5 // full house
     if (count.includes(3)) // three of a kind
-        return 4 + (hasJoker ? jokers + 1 : 0)
+        return 4 + (hasJoker && jokers > 0 ? jokers + 1 : 0)
     if (count.includes(2) && count.count(2) == 4) // two pair
         return 3 + jokers * 2
     if (count.includes(2)) { // one pair
@@ -107,19 +107,18 @@ async function day7() {
             for (let i = 0; i < hands1.length; i++) {
                 result += (i + 1) * +(hands1[i].bid)
             }
-            console.log(result)
+            console.log('part1:', result)
 
             //part2
-            console.log('part2')
             hands2 = [...hands]
             hands2 = hands2.map(h => {return {cards: getHand(h.cards, true), bid: h.bid}})
+            
             hands2.sort((a, b) => compareHands(a, b, true))
-            //console.log(hands2)
             result = 0
             for (let i = 0; i < hands2.length; i++) {
                 result += (i + 1) * +(hands2[i].bid)
             }
-            console.log(result)
+            console.log('part2:', result)
         });
     } catch (err) {
         console.error(err);
